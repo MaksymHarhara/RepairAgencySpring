@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:sd="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Manager</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="/assets/css/styles4.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container"><a class="navbar-brand" href="#" th:text="#{msg.repair.agency}"></a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/new_requests"
+                                        th:text="#{all.new.requests}"></a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/all_comments"
+                                        th:text="#{all.comments}"></a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/allRequests"
+                                        th:text="#{all.all}"></a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/allUsers"
+                                        th:text="#{all.users}"></a>
+                </li>
+            </ul>
+            <span class="navbar-text actions"> <a class="login" th:href="@{/logout}" th:text="#{nav.logout}"></a></span>
+            <button class="btn" type="button" id="locales" value="uk"
+                    style="height: 20px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>
+            <button
+                    class="btn" type="button" id="locales2" value="en"
+                    style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
+        </div>
+    </div>
+</nav>
+<div th:if="${param.error}">
+    <div class="alert alert-danger" th:text="#{empty.value}">
+        <h2 name="${error}" th:text="#{empty.value}"></h2>
+    </div>
+    <div th:if="${param.logout}">
+        <div class="alert alert-info">
+        </div>
+    </div>
+    <h2 th:if="${error}" th:text="${error}"></h2>
+</div>
+<div class="row">
+    <div class="col">
+        <p class="d-lg-flex justify-content-lg-center align-items-lg-end" style="font-size: 23px;"
+           th:text="#{all.new.requests}">
+            <strong></strong></p>
+    </div>
+</div>
+<div style="margin-left:20px; margin-right: 20px;" class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th><a class="sorted" sd:pagination-sort="request">Request</a></th>
+                    <th><a class="sorted" sd:pagination-sort="status" >Status</a></th>
+                    <th>Oplata</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="request: ${newRequests}">
+                    <tr>
+                        <td th:text="${request.request}"></td>
+                        <td th:text="${request.status}"></td>
+                        <!--<td th:text="${request.oplata}"></td>-->
+                        <td>
+                            <form action="#" th:action="@{/manager/new_requests}" th:object="${requestDTO}"
+                                  method="post">
+                             <div class="form-group">
+                                <select id="oplata" name="oplata">
+                                    <option selected value="WAITING" >WAITING</option>
+                                    <option selected value="PAID" >PAID</option>
+                                    <option selected value="CANCELED" >CANCELED</option>
+                                </select>
+                             </div>
+
+                                <div class="form-group">
+                                    <button type="submit" th:text="#{accept}" class="btn btn-primary login-btn btn-block">
+                                    </button>
+                                </div>
+
+                            </form>
+                            <a th:href="@{/manager/new_requests/accept?(id=${request.id})}">
+                                Accept
+                            </a>
+                            <a th:href="@{/manager/new_requests/reject?(id=${request.id})}">Reject</a>
+                        </td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+
+            <div  th:if="${newRequests!=null}" class="row">
+                <div class="col-sm-6">
+                    <nav class="pull-right">
+                        <ul class="pagination"  sd:pagination-split="6" sd:pagination="full">
+                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/js/script.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#locales").click(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != '') {
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#locales2").click(function () {
+            var selectedOption = $('#locales2').val();
+            if (selectedOption != '') {
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+</script>
+</body>
+
+</html>

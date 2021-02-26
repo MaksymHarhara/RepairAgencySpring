@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <title>Accept request</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="/assets/css/styles4.min.css">
+</head>
+<body>
+<h1 th:text="#{accept.request}"></h1>
+
+<!--<div th:if="{#price.matches('[^0-9]+')}">-->
+<!--    <h2 th:text="#{not.numeric.value}"></h2>-->
+<!--</div>-->
+
+<form style="padding-top:75px" method="post" id="formAccept" th:action="@{/manager/new_requests/accept/req}"
+      th:object="${requestDto}">
+    <label th:text="#{price}"></label>
+    <input style="margin-left:20px; margin-right: 20px;" id="price"
+           th:field="*{price}"
+           type="text"
+           class="form-control"
+           pattern="[0-9]+"/>
+    <input th:value="${param.id}" th:field="*{id}" type="hidden"/>
+
+    <label th:text="#{master}"></label>
+    <select id="mas" th:field="*{master}">
+        <option th:each="master:${masters}" th:value="${master}" th:text="${master}"></option>
+    </select>
+
+    <button type="submit" th:text="#{accept}"></button>
+</form>
+</body>
+</html>

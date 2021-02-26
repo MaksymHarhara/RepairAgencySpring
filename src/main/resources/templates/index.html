@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Repair Agency</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/styles2.min.css">
+</head>
+
+<body>
+<div>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-md navigation-clean-button">
+        <div class="container"><a class="navbar-brand" href="#" th:text="#{msg.repair.agency}"></a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                 id="navcol-1">
+                <span class="navbar-text actions"> <a href="/user" class="login" th:text="#{msg.login}"></a>
+                    <a class="btn btn-light action-button" role="button" href="/reg" th:text="#{msg.reg}"
+                            style="background-color: #0062cc;"></a>
+                </span>
+                <div class="navbar-text mr-3">
+                <button class="btn" type="button"
+                        value="uk"
+                        id="locales2"
+                        style="height: 30px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>
+                <button
+                        value="en"
+                        class="btn" type="button" id="locales"
+                        style="height: 30px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<div data-bs-parallax-bg="true"
+     style="height: 500px;background-image: url(&quot;/assets/img/background.jpg&quot;);background-position: center;background-size: cover;"></div>
+
+<div class="footer-dark">
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-3 item">
+                    <h3><a th:text="#{msg.services}"></a></h3>
+                    <ul>
+                        <li><a href="#" th:text="#{msg.web.design}"></a></li>
+                        <li><a href="#" th:text="#{msg.development}"></a></li>
+                        <li><a href="#" th:text="#{msg.hosting}"></a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-3 item">
+                    <h3><a th:text="#{msg.about}"></a></h3>
+                    <ul>
+                        <li><a href="#" th:text="#{msg.company}"></a></li>
+                        <li><a href="#" th:text="#{msg.team}"></a></li>
+                        <li><a href="#" th:text="#{msg.careers}"></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 item text">
+                    <h3><strong><a th:text="#{msg.repair.agency}"></a></strong><br></h3>
+                    <p><br><a th:text="#{msg.welcome.meaage}"></a><br><br></p>
+                </div>
+                <!--<div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>-->
+            </div>
+            <p class="copyright">Harhara Maksym © 2021</p>
+        </div>
+    </footer>
+</div>
+
+<!--<div class="footer-basic">-->
+    <!--<footer>-->
+        <!--<div class="social">-->
+        <!--<ul class="list-inline">-->
+            <!--<li class="list-inline-item"><a href="#">Home</a></li>-->
+            <!--<li class="list-inline-item"><a href="#">Services</a></li>-->
+            <!--<li class="list-inline-item"><a href="#">About</a></li>-->
+            <!--<li class="list-inline-item"><a href="#">Terms</a></li>-->
+            <!--<li class="list-inline-item"><a href="#">Privacy Policy</a></li>-->
+        <!--</ul>-->
+        <!--<p class="copyright">Repair Agency © 2019</p>-->
+    <!--</footer>-->
+<!--</div>-->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/script2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#locales").click(function () {
+            var selectedOption = $('#locales').val();
+            if (selectedOption != '') {
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#locales2").click(function () {
+            var selectedOption = $('#locales2').val();
+            if (selectedOption != '') {
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+</script>
+<script>
+    $('select').on('change', function () {
+
+        $('select').find('option').prop('disabled', false);
+
+        $('select').each(function () {
+            $('select').not(this).find('option[value="' + this.value + '"]').prop('disabled', true);
+        });
+
+    });
+</script>
+</body>
+
+</html>
