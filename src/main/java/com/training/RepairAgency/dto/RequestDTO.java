@@ -1,5 +1,6 @@
 package com.training.RepairAgency.dto;
 
+import com.training.RepairAgency.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,7 +38,7 @@ public class RequestDTO {
     @NotNull(message = "{not.null}")
     LocalDateTime date;
 
-    @NotNull(message = "{not.null}")
-    String oplata;
+  //  @NotNull(message = "{not.null}")
+  //  String oplata;
 
 }

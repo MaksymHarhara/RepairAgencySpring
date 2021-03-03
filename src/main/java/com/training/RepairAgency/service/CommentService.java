@@ -23,7 +23,7 @@ public class CommentService {
     public Comment saveComment(CommentDTO commentDTO) {
         return commentRepository.save(Comment.builder()
                 .comment(commentDTO.getComment())
-                .user(userRepository.findByEmail(commentDTO.getUsername()).get())
+                .user(userRepository.findByEmail(commentDTO.getUsername()).orElse(null))
                 .date(commentDTO.getDate())
                 .build());
     }

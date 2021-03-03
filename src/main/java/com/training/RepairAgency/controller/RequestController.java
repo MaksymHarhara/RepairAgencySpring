@@ -2,10 +2,15 @@ package com.training.RepairAgency.controller;
 
 import com.training.RepairAgency.dto.RequestDTO;
 import com.training.RepairAgency.dto.RequestInfoDTO;
+import com.training.RepairAgency.dto.RoleDTO;
 import com.training.RepairAgency.dto.UserDTO;
 import com.training.RepairAgency.entity.Request;
+import com.training.RepairAgency.entity.Role;
+import com.training.RepairAgency.entity.StatusOpl;
 import com.training.RepairAgency.entity.User;
+import com.training.RepairAgency.repository.UserRepository;
 import com.training.RepairAgency.service.RequestService;
+import com.training.RepairAgency.service.RoleService;
 import com.training.RepairAgency.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +36,15 @@ import java.util.Optional;
 public class RequestController {
     private final RequestService requestService;
     private final UserService userService;
+    private final RoleService roleService;
+    private final UserRepository userRepository;
 
-    public RequestController(RequestService requestService, UserService userService) {
+    public RequestController(RequestService requestService, UserService userService, RoleService roleService,
+                             UserRepository userRepository) {
         this.requestService = requestService;
         this.userService = userService;
+        this.roleService = roleService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/user/create_request")
@@ -74,7 +85,9 @@ public class RequestController {
     @GetMapping("/manager/allUsers")
     public String viewAllUsers(Model model) {
         List<User> listuser = userService.findAll();
+        List<Role> listroles = roleService.findAll();
         model.addAttribute("listuser", listuser);
+        model.addAttribute("listrole", listroles);
         return "manager-all-users.html";
     }
 
@@ -82,13 +95,21 @@ public class RequestController {
     public ModelAndView showEditUserPage(@PathVariable(name = "id") Long id) {
         ModelAndView mav = new ModelAndView("new");
         Optional<User> user = userService.findById(id);
+        Optional<Role> role = roleService.findById(id);
         mav.addObject("user", user);
+        mav.addObject("role", role);
         return mav;
     }
 
     @RequestMapping(value = "manager/allUsers/save", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("user") UserDTO userDTO) {
         userService.saveUser1(userDTO);
+        return "redirect:/manager/allUsers";
+    }
+
+    @RequestMapping(value = "manager/allUsers/save2", method = RequestMethod.POST)
+    public String saveRole(@ModelAttribute("role") RoleDTO roleDTO) {
+        roleService.saveRole(roleDTO);
         return "redirect:/manager/allUsers";
     }
 
@@ -122,29 +143,43 @@ public class RequestController {
         return "manager-all-requests.html";
     }
 
-    @PostMapping(value = "/manager/new_requests")
-    public String makeAdminCabinet(Model model, RequestDTO requestDTO) {
-        requestService.updateOplata(requestDTO);
-
-        return "redirect:/manager/new_requests";
-    }
-
     @GetMapping(value = "/manager/new_requests/accept")
-    public String getAcceptedId(@RequestParam("id") long id, RequestInfoDTO requestDto, Model model) {
+    public String getAcceptedId(@RequestParam("id") long id,
+                                RequestInfoDTO requestDto, Model model) {
         requestDto.setId(id);
         model.addAttribute("requestDto", requestDto);
+        //requestDto.getCreator_id().setId(creator_id);
         log.info("{}", id);
+
         model.addAttribute("masters", userService.findByRole("ROLE_MASTER"));
         return "manager-accept-request.html";
     }
 
+    private List<StatusOpl> getManagerStatuses() {
+        return Arrays.asList(StatusOpl.CANCELED, StatusOpl.PAID, StatusOpl.WAITING_FOR_PAYMENT);
+    }
+
     @PostMapping(value = "/manager/new_requests/accept/req")
-    public String makeAccepted(Model model, RequestInfoDTO requestDTO, @Validated
-            Request request, BindingResult bindingResult, UserDTO userDTO) {
+    public String makeAccepted(Model model, RequestInfoDTO requestDTO
+                               //@ModelAttribute("repairFormAttribute")
+                               //@Validated Request request
+    ) {
         log.info("{}", requestDTO.getId());
 
         requestService.updateStatusAndMasterById("accepted", requestDTO.getId(), requestDTO.getMaster(), null,
                 requestDTO.getPrice());
+
+       // BigDecimal newAmount = requestDTO.getCreator_id().getMoney().subtract(requestDTO.getPrice());
+        //requestDTO.getCreator_id().setMoney(newAmount);
+
+      //  if (repairFormEntity.getStatus().equals(Status.PAID)) {
+       //     BigDecimal newAmount =
+       //             repairFormEntity.getAuthor().getAmount().subtract(repairFormEntity.getPrice());
+       //     if (notEnoughMoney(repairFormEntity, newAmount)) {
+       //         return addRepairFormAndReturnBackToEdit(model, repairFormEntity);
+       //     }
+     //       repairFormEntity.getAuthor().setAmount(newAmount);
+        //}
 
         log.info("{}", "accept");
         return "redirect:/manager/new_requests";

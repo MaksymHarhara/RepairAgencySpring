@@ -17,6 +17,7 @@
 <!--</div>-->
 
 <form style="padding-top:75px" method="post" id="formAccept" th:action="@{/manager/new_requests/accept/req}"
+      th:modelAttribute="repairFormAttribute"
       th:object="${requestDto}">
     <label th:text="#{price}"></label>
     <input style="margin-left:20px; margin-right: 20px;" id="price"
@@ -25,11 +26,16 @@
            class="form-control"
            pattern="[0-9]+"/>
     <input th:value="${param.id}" th:field="*{id}" type="hidden"/>
+    <!--<input th:value="${param.creator_id}" th:field="*{creator_id}" type="hidden"/>-->
 
     <label th:text="#{master}"></label>
     <select id="mas" th:field="*{master}">
         <option th:each="master:${masters}" th:value="${master}" th:text="${master}"></option>
     </select>
+
+    <!--<select id="cre" th:field="*{creator}">
+        <option th:each="creator:${creators}" th:value="${creator}" th:text="${creator}"></option>
+    </select>-->
 
     <button type="submit" th:text="#{accept}"></button>
 </form>

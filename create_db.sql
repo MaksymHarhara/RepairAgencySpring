@@ -9,6 +9,7 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `phone_number` varchar(20) DEFAULT NULL,
   `surname` varchar(20) DEFAULT NULL,
+  `money` decimal(19,2) NOT NULL,
   `user_account_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKa2ixh18irxw16xxl1ka3gfth6` (`user_account_id`)
@@ -28,15 +29,19 @@ CREATE TABLE `user_roles` (
 );
 
 CREATE TABLE `request` (
-  `id` bigint(20) NOT NULL,
-  `creator` varchar(255) DEFAULT NULL,
-  `price` bigint(20) DEFAULT NULL,
-  `reason` varchar(255) DEFAULT NULL,
-  `request` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `master_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK22e2ep54nspx0we4lfrbtgv6q` (`master_id`)
+                           `id` bigint NOT NULL,
+                           `creator` varchar(255) DEFAULT NULL,
+                           `price` bigint DEFAULT NULL,
+                           `reason` varchar(255) DEFAULT NULL,
+                           `request` varchar(255) DEFAULT NULL,
+                           `status` varchar(255) DEFAULT NULL,
+                           `master_id` bigint DEFAULT NULL,
+                           `data` datetime DEFAULT NULL,
+                           `creator_id` bigint DEFAULT NULL,
+                           `id2` bigint DEFAULT NULL,
+                           PRIMARY KEY (`id`),
+                           KEY `FKg8temcoyrlae7ydx8avxkd39r` (`creator_id`),
+                           KEY `FK22e2ep54nspx0we4lfrbtgv6q` (`master_id`)
 );
 
 CREATE TABLE `comment` (
@@ -49,9 +54,9 @@ CREATE TABLE `comment` (
 );
 
 
-INSERT INTO `service_db`.`user` (`id`, `email`,  `first_name`,  `password`, `surname`) VALUES ('1', 'adam@sarif.com', 'Adam','$2a$10$L/LzfxrplFIUl0X5uElGwOuofhk3B9aFwMxC0suYHBD2UUnUoK1vG', 'Jansen');
-INSERT INTO `service_db`.`user` (`id`, `email`,  `first_name`,  `password`, `surname`) VALUES ('2', 'arahnid@gmail.com', 'David','$2a$10$L/LzfxrplFIUl0X5uElGwOuofhk3B9aFwMxC0suYHBD2UUnUoK1vG', 'Arahnidov');
-INSERT INTO `service_db`.`user` (`id`, `email`,  `first_name`,  `password`, `surname`) VALUES ('3', 'garry@gmail.com', 'Garry', '$2a$10$L/LzfxrplFIUl0X5uElGwOuofhk3B9aFwMxC0suYHBD2UUnUoK1vG', 'Fat');
+INSERT INTO `service_db`.`user` (`id`, `email`,  `first_name`,  `password`, `surname`, `money`) VALUES ('1', 'maksymharha@gmail.com', 'Maksym','$2y$08$VEFbKGsGkBnyOGtdA.OEWuK5eX1KeC/aFnzANTsJ7ZbmdHTCZ2Ate', 'Harhara', '0.00');
+INSERT INTO `service_db`.`user` (`id`, `email`,  `first_name`,  `password`, `surname`, `money`) VALUES ('2', 'arahnid@gmail.com', 'David','$2y$08$VEFbKGsGkBnyOGtdA.OEWuK5eX1KeC/aFnzANTsJ7ZbmdHTCZ2Ate', 'Arahnidov', '0.00');
+INSERT INTO `service_db`.`user` (`id`, `email`,  `first_name`,  `password`, `surname`, `money`) VALUES ('3', 'garry@gmail.com', 'Garry', '$2y$08$VEFbKGsGkBnyOGtdA.OEWuK5eX1KeC/aFnzANTsJ7ZbmdHTCZ2Ate', 'Fat', '0.00');
 
 INSERT INTO `service_db`.`role` (`id`, `name`) VALUES ('1', 'ROLE_MANAGER');
 INSERT INTO `service_db`.`role` (`id`, `name`) VALUES ('2', 'ROLE_USER');

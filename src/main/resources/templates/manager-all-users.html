@@ -7,13 +7,41 @@
     <script src= "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
 </head>
 <body>
- <div>
-    <h2 >Spring Boot Crud System -Student Registation</h2>
-    <tr>
-        <div align = "left" >
-            <h3><a  th:href="@{'/new'}">Add new</a></h3>
+<nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+    <div class="container"><a class="navbar-brand" href="#" th:text="#{msg.repair.agency}"></a>
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+             id="navcol-1">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/new_requests"
+                                        th:text="#{all.new.requests}"></a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/all_comments"
+                                        th:text="#{all.comments}"></a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/allRequests"
+                                        th:text="#{all.all}"></a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/allUsers"
+                                        th:text="#{all.users}"></a>
+                </li>
+            </ul>
+            <span class="navbar-text actions"> <a class="login" th:href="@{/logout}" th:text="#{nav.logout}"></a></span>
+            <button class="btn" type="button" id="locales" value="uk"
+                    style="height: 20px;background-image: url(&quot;/assets/img/ua.jpg&quot;);background-position: center;margin-right: 2px;margin-left: 15px;"></button>
+            <button
+                    class="btn" type="button" id="locales2" value="en"
+                    style="height: 20px;background-image: url(&quot;/assets/img/en.jpg&quot;);background-position: center;background-size: cover;background-repeat: no-repeat;padding-right: 12px;margin: 6px;margin-top: 6px;margin-right: -27px;margin-left: 1px;"></button>
         </div>
-    </tr>
+    </div>
+</nav>
+ <div>
+    <h2 >Spring Boot System - Edit</h2>
     <tr>
         <div class="col-sm-5" align = "center">
             <div class="panel-body" align = "center" >
@@ -38,10 +66,35 @@
                         <td>
                             <a th:href="@{'/manager/allUsers/edit/' + ${user.id}}">Edit</a>
                         </td>
-                        <td>
-                            <a th:href="@{'/delete/' + ${user.id}}">Delete</a>
-                        </td>
                     </tr>
+                    </div>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </tr>
+
+     <tr>
+         <div class="col-sm-5" align = "center">
+             <div class="panel-body" align = "center" >
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <div th:each="role : ${listrole}">
+                        <tr>
+                            <td th:text="${role.id}">Role ID</td>
+                            <td th:text="${role.name}">Name</td>
+                            <td>
+                                <a th:href="@{'/manager/allUsers/edit/' + ${role.id}}">Edit</a>
+                            </td>
+                        </tr>
                     </div>
                     </tbody>
                 </table>

@@ -28,11 +28,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE request r SET r.oplata=:oplata where r.id=:id", nativeQuery = true)
-    void updateOplata(@Param("oplata") String oplata, @Param("id") Long id);
-
-    @Transactional
-    @Modifying
     @Query(value = UPDATE_STATIS_BY_ID, nativeQuery = true)
     void updateStatusById(@Param("status") String status,
                                    @Param("id") Long id);

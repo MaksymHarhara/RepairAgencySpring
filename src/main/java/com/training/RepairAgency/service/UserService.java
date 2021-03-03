@@ -19,10 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -76,13 +73,24 @@ public class UserService implements UserDetailsService {
                 new UsernameNotFoundException("user " + userDTO.getEmail() + " was not found!"));
         try {
             userRepository.updateMoneyById(userDTO.getMoney(), user.getId());
-
         } catch (Exception ex) {
             log.info("{Почтова адреса вже існує}");
             return false;
         }
         return true;
     }
+
+  //  public boolean saveUser2(UserDTO userDTO) {
+  //      User user = userRepository.findByEmail(userDTO.getEmail()).orElseThrow(() ->
+   //             new UsernameNotFoundException("user " + userDTO.getEmail() + " was not found!"));
+   //     try {
+   //         userRepository.updateRoleById(userDTO.getRole(), user.getId()+1);
+   //     } catch (Exception ex) {
+   //         log.info("{Почтова адреса вже існує}");
+   //         return false;
+  //      }
+  //      return true;
+  //  }
 
     public boolean saveUser(User user) {
         try {

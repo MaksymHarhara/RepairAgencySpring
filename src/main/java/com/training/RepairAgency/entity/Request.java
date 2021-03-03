@@ -26,15 +26,11 @@ public class Request {
     String reason;
     String creator;
 
-  //  @OneToOne
-   // @JoinColumn(name = "creator_id")
-  //  private User creator;
+    @OneToOne
+    @JoinColumn(name = "creator_id")
+    User creator_id;
 
     LocalDateTime data;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable
-    private Collection<Oplata> oplatas;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "master_id")

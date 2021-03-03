@@ -1,10 +1,7 @@
 package com.training.RepairAgency.service;
 
 import com.training.RepairAgency.dto.RequestDTO;
-import com.training.RepairAgency.dto.UserDTO;
-import com.training.RepairAgency.entity.Oplata;
 import com.training.RepairAgency.entity.Request;
-import com.training.RepairAgency.entity.Role;
 import com.training.RepairAgency.entity.User;
 import com.training.RepairAgency.repository.RequestRepository;
 import com.training.RepairAgency.repository.UserRepository;
@@ -15,8 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,6 +37,7 @@ public class RequestService {
                         .price(BigDecimal.valueOf(0.0))
                         .creator(name)
                         .data(requestDTO.getDate())
+                        .creator_id(userRepository.findByEmail(name).orElse(null))
                         .build()
         );
     }
@@ -94,22 +90,6 @@ public class RequestService {
                 .price(price)
                 .master(userRepository.findByEmail(master).orElse(null))
                 .build());
-    }
-
-    public void updateOplata(String oplata, Long id) {
-        requestRepository.updateOplata(oplata, id);
-    }
-
-    public boolean updateOplata(RequestDTO requestDTO) {
-        try {
-            requestRepository.save(Request.builder()
-                    .oplatas(Arrays.asList(new Oplata(requestDTO.getOplata()))).build());
-
-        } catch (Exception ex) {
-            log.info("{Почтова адреса вже існує}");
-            return false;
-        }
-        return true;
     }
 
     public void updateStatusById(String status, Long id) {

@@ -1,5 +1,6 @@
 package com.training.RepairAgency.dto;
 
+import com.training.RepairAgency.entity.User;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -15,4 +16,5 @@ public class RequestInfoDTO {
     String master;
     BigDecimal price;
     String  reason;
+    User creator_id;
 }

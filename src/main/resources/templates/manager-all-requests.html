@@ -3,12 +3,12 @@
       xmlns:sd="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
     <title>Manager</title>
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
-    <link rel="stylesheet" href="/assets/css/styles4.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora"/>
+    <link rel="stylesheet" href="/assets/css/styles4.min.css"/>
 </head>
 
 <body>
@@ -82,13 +82,13 @@
                         <td>
                             <form action="#" th:action="@{/manager/new_requests}" th:object="${requestDTO}"
                                   method="post">
-                             <div class="form-group">
-                                <select id="oplata" name="oplata">
+                             <!--<div class="form-group">
+                                 <select id="oplata" name="oplata">
                                     <option selected value="WAITING" >WAITING</option>
                                     <option selected value="PAID" >PAID</option>
                                     <option selected value="CANCELED" >CANCELED</option>
                                 </select>
-                             </div>
+                             </div>-->
 
                                 <div class="form-group">
                                     <button type="submit" th:text="#{accept}" class="btn btn-primary login-btn btn-block">
@@ -106,16 +106,20 @@
                 </tbody>
             </table>
 
-            <div  th:if="${newRequests!=null}" class="row">
+           <!-- <div  th:if="${newRequests!=null}" class="row">
                 <div class="col-sm-6">
                     <nav class="pull-right">
                         <ul class="pagination"  sd:pagination-split="6" sd:pagination="full">
-                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                            <li class="disabled"><a href="#" aria-label="Previous">
+                                <span aria-hidden="true">
+                                    <&laquo;>-->
+                                <!--</span>
+                            </a></li>
                             <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div>-->
 
         </div>
     </div>

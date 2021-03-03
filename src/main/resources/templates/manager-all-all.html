@@ -31,6 +31,10 @@
                                         href="/manager/allRequests"
                                         th:text="#{all.all}"></a>
                 </li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/manager/allUsers"
+                                        th:text="#{all.users}"></a>
+                </li>
             </ul>
             <span class="navbar-text actions"> <a class="login" th:href="@{/logout}" th:text="#{nav.logout}"></a></span>
             <button class="btn" type="button" id="locales" value="uk"
@@ -94,7 +98,9 @@
                 <div class="col-sm-6">
                     <nav class="pull-right">
                         <ul class="pagination"  sd:pagination-split="6" sd:pagination="full">
-                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                            <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">
+                                <!--&laquo;-->
+                            </span></a></li>
                             <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
                         </ul>
                     </nav>
